@@ -1,20 +1,32 @@
+/** @jsx h */
 import { h } from 'preact'
-import { renderToString } from '../src';
+import { renderToString } from '../src'
+import { oneline as d } from './_utils'
 
 describe('renderToString', () => {
   it('renders empty for empty nodes', () => {
     // @ts-expect-error
-    return expect(renderToString(true)).toBe('');
+    return expect(renderToString(true)).toBe('')
   })
-  it('renders simple string', () => {
-    const code = <div>Hello</div>
-    const rendered = renderToString(code)
-    expect(rendered).toBe('<div>Hello</div>')
-  });
-  it('render simple attributes', () => {
-    expect(renderToString(<div data-attr="foo">Hello</div>)).toBe(`<div data-attr="foo">Hello</div>`)
+  it('renders simple element', () => {
+    expect(renderToString(<div>Hello</div>)).toEqual(d`
+      <div>
+        Hello
+      </div>
+    `)
+  })
+  it('renders an attribute', () => {
+    expect(renderToString(<div data-attr="foo">Hello</div>)).toBe(
+      `<div data-attr="foo">Hello</div>`
+    )
   })
   it('renders nested native elements', () => {
-    expect(renderToString(<div><span>Hello</span></div>)).toBe(`<div><span>Hello</span></div>`)
+    expect(
+      renderToString(
+        <div>
+          <span>Hello</span>
+        </div>
+      )
+    ).toBe(`<div><span>Hello</span></div>`)
   })
-});
+})

@@ -13,8 +13,8 @@ export function renderToString(code: VNode, context: string[] = []) {
 
   if (props) {
     const attributes: string[] = Object.keys(props).sort()
-    
-    attributes.forEach((attribute) => {
+
+    attributes.forEach(attribute => {
       if (attribute === 'children') {
         children = props[attribute]
         return
@@ -22,7 +22,7 @@ export function renderToString(code: VNode, context: string[] = []) {
       if (typeof attribute !== 'string') {
         return
       }
-      chunks.push(' ', attribute, '=', '"', (props[attribute] as string), '"')
+      chunks.push(' ', attribute, '=', '"', props[attribute] as string, '"')
     })
   }
 
